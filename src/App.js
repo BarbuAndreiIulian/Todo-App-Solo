@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TodoInput from "./TodoInput";
+import TodoObj from "./TodoObj";
 
 function App() {
+  const [listTodo, setListTodo] = useState([]);
+
+  const makeListTodo = (t) => {
+    let newTodo = {
+      text: t,
+      id: 4,
+      completed: false,
+    };
+    setListTodo([newTodo, ...listTodo]);
+  };
+
+  let elements = listTodo.map((el) => <TodoObj text={el.text} />);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TodoApp</h1>
+      <TodoInput makeTodo={makeListTodo} />
+      {elements}
     </div>
   );
 }
